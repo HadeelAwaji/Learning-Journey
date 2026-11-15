@@ -13,6 +13,14 @@ final class ActivityViewModel {
     private var streakStartDate: Date = .now.startOfDay
     private var lastActivityDate: Date?
 
+    private let storage = StorageService()
+
+    // MARK: - Init
+
+    init() {
+        load()
+    }
+
     // MARK: - Today
 
     var todayStatus: DayStatus? {
@@ -124,11 +132,13 @@ final class ActivityViewModel {
     private func addLog(_ status: DayStatus) {
         logs.append(DayLog(date: today, status: status))
         lastActivityDate = today
+        save()
     }
 
     private func resetStreak() {
         streakStartDate = today.startOfDay
         lastActivityDate = nil
+        save()
     }
 
     // MARK: - Rules
@@ -183,6 +193,25 @@ final class ActivityViewModel {
         }
         return months
     }
+
+    // MARK: - Storage
+
+    private func save() {
+        storage.save(SavedProgress(
+            goal: goal,
+            logs: logs,
+            streakStartDate: streakStartDate,
+            lastActivityDate: lastActivityDate
+        ))
+    }
+
+    private func load() {
+        guard let saved = storage.load() else { return }
+        goal = saved.goal
+        logs = saved.logs
+        streakStartDate = saved.streakStartDate
+        lastActivityDate = saved.lastActivityDate
+    }
 }
 
 // MARK: - Preview Data
@@ -191,6 +220,7 @@ final class ActivityViewModel {
 extension ActivityViewModel {
     static func preview(_ state: GoalState) -> ActivityViewModel {
         let viewModel = ActivityViewModel()
+        viewModel.logs = []
 
         guard state != .inProgress else {
             viewModel.goal = LearningGoal(subject: "Swift", duration: .week)
