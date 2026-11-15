@@ -27,10 +27,6 @@ final class ActivityViewModel {
         status(for: today)
     }
 
-    var isTodayLogged: Bool {
-        todayStatus != nil
-    }
-
     var weekDays: [Date] {
         today.daysOfWeek
     }
@@ -82,11 +78,11 @@ final class ActivityViewModel {
     // MARK: - Buttons
 
     var canLog: Bool {
-        !isTodayLogged
+        todayStatus != .learned
     }
 
     var canFreeze: Bool {
-        !isTodayLogged && frozenCount < freezeLimit
+        todayStatus != .frozen && frozenCount < freezeLimit
     }
 
     var logButtonTitle: String {
@@ -130,6 +126,7 @@ final class ActivityViewModel {
     }
 
     private func addLog(_ status: DayStatus) {
+        logs.removeAll { $0.date.isSameDay(as: today) }
         logs.append(DayLog(date: today, status: status))
         lastActivityDate = today
         save()

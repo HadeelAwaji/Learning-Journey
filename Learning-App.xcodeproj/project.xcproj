@@ -106,6 +106,7 @@
     "DEAD_CODE_STRIPPING": "YES",
     "DEBUG_INFORMATION_FORMAT[config=Debug]": "dwarf",
     "DEBUG_INFORMATION_FORMAT[config=Release]": "dwarf-with-dsym",
+    "DEVELOPMENT_TEAM": "4XAH43U2H2",
     "DRIVERKIT_DEPLOYMENT_TARGET": "27.2",
     "ENABLE_NS_ASSERTIONS[config=Release]": "NO",
     "ENABLE_STRICT_OBJC_MSGSEND": "YES",
@@ -141,6 +142,6 @@
     "WATCHOS_DEPLOYMENT_TARGET": "27.2",
     "XROS_DEPLOYMENT_TARGET": "27.2",
   },
-  "last-upgrade": "27.0",
+  "last-upgrade": "27.2",
   "last-swift-update": "27.0",
 }
