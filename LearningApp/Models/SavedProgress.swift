@@ -5,4 +5,5 @@ struct SavedProgress: Codable {
     let logs: [DayLog]
     let streakStartDate: Date
     let lastActivityDate: Date?
+    let activityBeforeToday: Date?
 }

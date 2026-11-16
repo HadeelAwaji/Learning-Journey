@@ -12,6 +12,7 @@ final class ActivityViewModel {
 
     private var streakStartDate: Date = .now.startOfDay
     private var lastActivityDate: Date?
+    private var activityBeforeToday: Date?
 
     private let storage = StorageService()
 
@@ -25,6 +26,14 @@ final class ActivityViewModel {
 
     var todayStatus: DayStatus? {
         status(for: today)
+    }
+
+    var isLearnedToday: Bool {
+        todayStatus == .learned
+    }
+
+    var isFrozenToday: Bool {
+        todayStatus == .frozen
     }
 
     var weekDays: [Date] {
@@ -77,20 +86,16 @@ final class ActivityViewModel {
 
     // MARK: - Buttons
 
-    var canLog: Bool {
-        todayStatus != .learned
-    }
-
     var canFreeze: Bool {
-        todayStatus != .frozen && frozenCount < freezeLimit
+        isFrozenToday || frozenCount < freezeLimit
     }
 
     var logButtonTitle: String {
-        todayStatus == .learned ? "Logged as Learned" : "Log as Learned"
+        isLearnedToday ? "Logged as Learned" : "Log as Learned"
     }
 
     var freezeButtonTitle: String {
-        todayStatus == .frozen ? "Freezed for a day" : "Freeze for a day"
+        isFrozenToday ? "Freezed for a day" : "Freeze for a day"
     }
 
     // MARK: - Validation
@@ -113,28 +118,45 @@ final class ActivityViewModel {
         startGoal(subject: subject, duration: duration)
     }
 
-    func logLearned() {
+    func toggleLearned() {
         refresh()
-        guard canLog else { return }
-        addLog(.learned)
+        if isLearnedToday {
+            removeTodayLog()
+        } else {
+            addLog(.learned)
+        }
     }
 
-    func freezeDay() {
+    func toggleFreeze() {
         refresh()
-        guard canFreeze else { return }
-        addLog(.frozen)
+        if isFrozenToday {
+            removeTodayLog()
+        } else {
+            guard canFreeze else { return }
+            addLog(.frozen)
+        }
     }
 
     private func addLog(_ status: DayStatus) {
+        if todayStatus == nil {
+            activityBeforeToday = lastActivityDate
+        }
         logs.removeAll { $0.date.isSameDay(as: today) }
         logs.append(DayLog(date: today, status: status))
         lastActivityDate = today
         save()
     }
 
+    private func removeTodayLog() {
+        logs.removeAll { $0.date.isSameDay(as: today) }
+        lastActivityDate = activityBeforeToday
+        save()
+    }
+
     private func resetStreak() {
         streakStartDate = today.startOfDay
         lastActivityDate = nil
+        activityBeforeToday = nil
         save()
     }
 
@@ -198,7 +220,8 @@ final class ActivityViewModel {
             goal: goal,
             logs: logs,
             streakStartDate: streakStartDate,
-            lastActivityDate: lastActivityDate
+            lastActivityDate: lastActivityDate,
+            activityBeforeToday: activityBeforeToday
         ))
     }
 
@@ -208,6 +231,7 @@ final class ActivityViewModel {
         logs = saved.logs
         streakStartDate = saved.streakStartDate
         lastActivityDate = saved.lastActivityDate
+        activityBeforeToday = saved.activityBeforeToday
     }
 }
 

@@ -19,9 +19,9 @@ struct ActivityView: View {
 
                 statCards
 
-                Spacer()
                 mainSection
-                Spacer()
+                    .frame(maxHeight: .infinity, alignment: isShowingResult ? .top : .center)
+                    .padding(.top, isShowingResult ? 56 : 0)
             }
             .padding(.horizontal, 14)
             .padding(.top, 8)
@@ -98,6 +98,10 @@ struct ActivityView: View {
 
     // MARK: - Main Section
 
+    private var isShowingResult: Bool {
+        viewModel.goalState != .inProgress
+    }
+
     @ViewBuilder
     private var mainSection: some View {
         switch viewModel.goalState {
@@ -112,27 +116,40 @@ struct ActivityView: View {
 
     private var logSection: some View {
         VStack(spacing: 48) {
-            LogButton(title: viewModel.logButtonTitle, isEnabled: viewModel.canLog) {
-                viewModel.logLearned()
+            LogButton(title: viewModel.logButtonTitle, isLogged: viewModel.isLearnedToday) {
+                viewModel.toggleLearned()
             }
 
             VStack(spacing: 12) {
-                Button {
-                    viewModel.freezeDay()
-                } label: {
-                    Text(viewModel.freezeButtonTitle)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.glassProminent)
-                .controlSize(.large)
-                .tint(.freezeBlue)
-                .frame(width: 272)
-                .disabled(!viewModel.canFreeze)
+                freezeButton
+                    .controlSize(.large)
+                    .frame(width: 272)
+                    .disabled(!viewModel.canFreeze)
 
                 Text(viewModel.freezesUsedText)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
+        }
+    }
+
+    @ViewBuilder
+    private var freezeButton: some View {
+        let button = Button {
+            viewModel.toggleFreeze()
+        } label: {
+            Text(viewModel.freezeButtonTitle)
+                .frame(maxWidth: .infinity)
+        }
+
+        if viewModel.isFrozenToday {
+            button
+                .buttonStyle(.glass)
+                .foregroundStyle(.secondary)
+        } else {
+            button
+                .buttonStyle(.glassProminent)
+                .tint(.freezeBlue)
         }
     }
 }
