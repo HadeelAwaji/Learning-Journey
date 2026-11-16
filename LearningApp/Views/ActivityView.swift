@@ -21,7 +21,7 @@ struct ActivityView: View {
 
                 mainSection
                     .frame(maxHeight: .infinity, alignment: isShowingResult ? .top : .center)
-                    .padding(.top, isShowingResult ? 56 : 0)
+                    .padding(.top, isShowingResult ? 96 : 0)
             }
             .padding(.horizontal, 14)
             .padding(.top, 8)

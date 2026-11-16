@@ -20,7 +20,7 @@ struct GoalResultView: View {
 
             Button("Set a goal", systemImage: "pencil.and.outline", action: onSetGoal)
                 .buttonStyle(.glassProminent)
-                .padding(.top, 24)
+                .padding(.top, 64)
         }
         .multilineTextAlignment(.center)
     }
