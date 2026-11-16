@@ -115,6 +115,7 @@ final class ActivityViewModel {
     }
 
     func updateGoal(subject: String, duration: Duration) {
+        logs.removeAll { $0.date.isSameDay(as: today) }
         startGoal(subject: subject, duration: duration)
     }
 
