@@ -24,7 +24,7 @@ Built in 10 days as part of the Apple Developer Academy coding challenge, focusi
 
 ## 📸 Screenshots
 
-| Onboarding | Activity | Learning Goal | Calendar |
+| Onboarding | Activity | Update Goal | Calendar |
 |---|---|---|---|
 | <img src="screenshots/onboarding.png" width="200"> | <img src="screenshots/activity.png" width="200"> | <img src="screenshots/goal.png" width="200"> | <img src="screenshots/calendar.png" width="200"> |
 
