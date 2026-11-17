@@ -11,6 +11,21 @@
     ],
   },
   "files": [
+    { "path": "README.md", "target-membership": [ "Learning-App/resources" ] },
+    {
+      "kind": "group",
+      "path": "screenshots",
+      "children": [
+        { "path": "activity.png" },
+        { "path": "calendar.png" },
+        { "path": "completed.png" },
+        { "path": "frozen.png" },
+        { "path": "goal.png" },
+        { "path": "logged.png" },
+        { "path": "notmet.png" },
+        { "path": "onboarding.png" },
+      ],
+    },
     { "kind": "folder", "path": "LearningApp", "target-membership": [ "Learning-App" ] },
     {
       "kind": "group",
