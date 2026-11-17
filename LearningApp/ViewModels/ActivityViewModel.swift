@@ -58,6 +58,11 @@ final class ActivityViewModel {
         count(of: .frozen)
     }
 
+    var freezesUsed: Int {
+        guard let goal else { return 0 }
+        return logs.filter { $0.status == .frozen && $0.date >= goal.startDate }.count
+    }
+
     var freezeLimit: Int {
         goal?.duration.freezeLimit ?? 0
     }
@@ -77,7 +82,7 @@ final class ActivityViewModel {
     }
 
     var freezesUsedText: String {
-        "\(frozenCount) out of \(freezeLimit) Freezes used"
+        "\(freezesUsed) out of \(freezeLimit) Freezes used"
     }
 
     private func dayText(for count: Int) -> String {
@@ -87,7 +92,7 @@ final class ActivityViewModel {
     // MARK: - Buttons
 
     var canFreeze: Bool {
-        isFrozenToday || frozenCount < freezeLimit
+        isFrozenToday || freezesUsed < freezeLimit
     }
 
     var logButtonTitle: String {
@@ -180,21 +185,12 @@ final class ActivityViewModel {
 
     var goalState: GoalState {
         guard let goal else { return .inProgress }
-        guard today >= goal.endDate else { return .inProgress }
 
-        return isGoalMet(goal) ? .completed : .notMet
-    }
+        if streakStartDate > goal.startDate {
+            return .notMet
+        }
 
-    private func isGoalMet(_ goal: LearningGoal) -> Bool {
-        let loggedDays = logs.filter {
-            $0.date >= goal.startDate && $0.date < goal.endDate
-        }.count
-
-        let totalDays = Calendar.current.dateComponents(
-            [.day], from: goal.startDate, to: goal.endDate
-        ).day ?? 0
-
-        return loggedDays >= totalDays
+        return today >= goal.endDate ? .completed : .inProgress
     }
 
     // MARK: - Calendar
@@ -251,7 +247,7 @@ extension ActivityViewModel {
 
         let start = Date.now.startOfDay.adding(days: -7)
         viewModel.goal = LearningGoal(subject: "Swift", duration: .week, startDate: start)
-        viewModel.streakStartDate = start
+        viewModel.streakStartDate = state == .notMet ? start.adding(days: 3) : start
 
         for offset in 0..<7 {
             if state == .notMet && offset == 2 { continue }
