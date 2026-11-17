@@ -24,11 +24,11 @@ A SwiftUI app that helps learners build a daily learning habit. Set a learning g
 
 | Onboarding | Activity | Learning Goal | Calendar |
 |---|---|---|---|
-| ![](screenshots/onboarding.png) | ![](screenshots/activity.png) | ![](screenshots/goal.png) | ![](screenshots/calendar.png) |
+| <img src="screenshots/onboarding.png" width="200"> | <img src="screenshots/activity.png" width="200"> | <img src="screenshots/goal.png" width="200"> | <img src="screenshots/calendar.png" width="200"> |
 
 | Logged | Frozen | Well done | Not met |
 |---|---|---|---|
-| ![](screenshots/logged.png) | ![](screenshots/frozen.png) | ![](screenshots/completed.png) | ![](screenshots/notmet.png) |
+| <img src="screenshots/logged.png" width="200"> | <img src="screenshots/frozen.png" width="200"> | <img src="screenshots/completed.png" width="200"> | <img src="screenshots/notmet.png" width="200"> |
 
 ## 🛠 Technologies
 
