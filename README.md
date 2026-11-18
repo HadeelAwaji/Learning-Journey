@@ -1,8 +1,10 @@
 # 🔥 Learning Journey
 
+<img src="screenshots/banner.png" width="100%">
+
 A SwiftUI app that helps learners build a daily learning habit. Set a goal, log each day you learn, and keep your streak alive.
 
-Built in 10 days as part of the Apple Developer Academy coding challenge, focusing on clean architecture, data modeling, and Liquid Glass.
+Built in 10 days with a focus on clean architecture, data modeling, and Liquid Glass.
 
 ## ✨ Features
 
@@ -24,13 +26,13 @@ Built in 10 days as part of the Apple Developer Academy coding challenge, focusi
 
 ## 📸 Screenshots
 
-| Onboarding | Activity | Update Goal | Calendar |
-|---|---|---|---|
-| <img src="screenshots/onboarding.png" width="200"> | <img src="screenshots/activity.png" width="200"> | <img src="screenshots/goal.png" width="200"> | <img src="screenshots/calendar.png" width="200"> |
-
-| Logged | Frozen | Well done | Not met |
-|---|---|---|---|
-| <img src="screenshots/logged.png" width="200"> | <img src="screenshots/frozen.png" width="200"> | <img src="screenshots/completed.png" width="200"> | <img src="screenshots/notmet.png" width="200"> |
+<p align="center">
+  <img src="screenshots/appstore_onboarding.png" width="19%">
+  <img src="screenshots/appstore_activity.png" width="19%">
+  <img src="screenshots/appstore_frozen.png" width="19%">
+  <img src="screenshots/appstore_calendar.png" width="19%">
+  <img src="screenshots/appstore_completed.png" width="19%">
+</p>
 
 ## 🛠 Technologies
 
@@ -87,11 +89,6 @@ LearningApp/
 1. Clone the repository
 2. Open `Learning-App.xcodeproj` in **Xcode 26** or later
 3. Run on an iPhone simulator or device with **iOS 26+**
-
-## 🎨 Credits
-
-UI design provided as part of the academy's coding challenge.
-Developed by **Hadeel Awaji**.
 
 ## 📫 Contact
 
