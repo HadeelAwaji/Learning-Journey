@@ -117,6 +117,10 @@ final class ActivityViewModel {
         let cleanSubject = subject.trimmingCharacters(in: .whitespacesAndNewlines)
         goal = LearningGoal(subject: cleanSubject, duration: duration, startDate: today.startOfDay)
         resetStreak()
+
+        // The goal start counts as the first activity, so 32 hours with no log breaks the streak
+        lastActivityDate = today
+        save()
     }
 
     func updateGoal(subject: String, duration: Duration) {
